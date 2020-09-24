@@ -2,7 +2,6 @@
 # Dockerfile to create a php container to run the project
 ############################################################
 
-# FROM cyberduck/php-fpm-laravel:7.0
 FROM php:7.3-fpm
 
 # Set working directory
