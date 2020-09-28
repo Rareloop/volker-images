@@ -20,3 +20,6 @@
 
 # node-6
 (cd node-6 && docker build -f DockerFile . -t rareloop/volker:node-6 && docker push rareloop/volker:node-6)
+
+# node-8
+(cd node-8 && docker build -f DockerFile . -t rareloop/volker:node-8 && docker push rareloop/volker:node-8)
