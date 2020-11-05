@@ -33,7 +33,7 @@ RUN docker-php-ext-install gd
 RUN pecl install redis && docker-php-ext-enable redis
 
 # Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.16
 
 # Add user for laravel application
 RUN groupadd -g 1000 www
