@@ -1,0 +1,4 @@
+FROM mutagenio/sidecar
+
+# Create a group and user
+RUN addgroup -S www -g 101 && adduser -S www -G www -u 101

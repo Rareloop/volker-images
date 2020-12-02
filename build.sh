@@ -26,3 +26,6 @@
 
 # node-10
 (cd node-10 && docker build -f DockerFile . -t rareloop/volker:node-10 && docker push rareloop/volker:node-10)
+
+# mutagen
+(cd mutagen && docker build -f DockerFile . -t rareloop/volker:mutagen && docker push rareloop/volker:mutagen)
