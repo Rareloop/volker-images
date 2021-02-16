@@ -21,13 +21,14 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     libzip-dev \
-    libonig-dev
+    libonig-dev \
+    libxml2-dev
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install extensions
-RUN docker-php-ext-install mysqli pdo_mysql mbstring zip exif pcntl
+RUN docker-php-ext-install mysqli pdo_mysql mbstring zip exif pcntl soap
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install gd
