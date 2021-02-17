@@ -19,7 +19,7 @@
 (cd php-74 && docker build -f DockerFile . -t rareloop/volker:php-74 && docker push rareloop/volker:php-74)
 
 # php-80
-(cd php-74 && docker build -f DockerFile . -t rareloop/volker:php-74 && docker push rareloop/volker:php-74)
+(cd php-80 && docker build -f DockerFile . -t rareloop/volker:php-80 && docker push rareloop/volker:php-80)
 
 # node-6
 (cd node-6 && docker build -f DockerFile . -t rareloop/volker:node-6 && docker push rareloop/volker:node-6)
