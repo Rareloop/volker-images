@@ -21,7 +21,8 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     libzip-dev \
-    libxml2-dev
+    libxml2-dev \
+    libmagickwand-dev
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -33,6 +34,7 @@ RUN docker-php-ext-configure zip
 RUN docker-php-ext-install gd
 RUN docker-php-ext-install sockets
 RUN pecl install redis && docker-php-ext-enable redis
+RUN pecl install imagick && docker-php-ext-enable imagick
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.16
