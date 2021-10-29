@@ -1,0 +1,14 @@
+############################################################
+# Dockerfile to create a node container to run the project
+############################################################
+FROM node:11
+
+# Set working directory
+WORKDIR /var/www
+
+# Add user for laravel application
+RUN groupadd -g 1001 www
+RUN useradd -u 1001 -ms /bin/bash -g www www
+
+# Change current user to www
+USER www

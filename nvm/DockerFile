@@ -1,0 +1,16 @@
+############################################################
+# Dockerfile to create a node container to run the project
+############################################################
+FROM tzenderman/docker-nvm:latest
+
+# Set working directory
+WORKDIR /var/www
+
+# Add user for laravel application
+RUN groupadd -g 1001 www
+RUN useradd -u 1001 -ms /bin/bash -g www www
+
+COPY entrypoint.sh /entrypoint.sh
+COPY image-start-script.sh /image-start-script.sh
+
+CMD [ "/bin/bash", "/entrypoint.sh" ]
