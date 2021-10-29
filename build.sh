@@ -34,4 +34,4 @@
 #(cd node-11 && docker build -f DockerFile . -t rareloop/volker:node-11 && docker push rareloop/volker:node-11)
 
 # nvm
-#(cd nvm && docker build -f DockerFile . -t rareloop/volker:nvm && docker push rareloop/volker:nvm)
+(cd nvm && docker build -f DockerFile . -t rareloop/volker:nvm && docker push rareloop/volker:nvm)

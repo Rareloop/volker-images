@@ -6,9 +6,9 @@ if [ -f '/image-start-script.sh' ]; then
     /image-start-script.sh
 fi
 
-if [ -f './custom-script.sh' ]; then
+if [ -f '/var/www/container-start-script.sh' ]; then
     echo 'Found project container-start-script.sh to run'
-    ./container-start-script.sh
+    /var/www/container-start-script.sh
 fi
 
 echo 'Container entrypoint complete'
