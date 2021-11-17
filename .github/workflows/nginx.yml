@@ -28,6 +28,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           file: ./nginx/DockerFile
-          context: nginx
+          context: ./nginx
           push: false
           tags: user/app:latest
