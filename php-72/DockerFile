@@ -38,6 +38,13 @@ RUN pecl install yaml && docker-php-ext-enable yaml
 # Copy Opcache configuration
 COPY opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
+# Setup PHP FPM workers config
+RUN echo 'pm = dynamic' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
+    echo 'pm.max_children = 5' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
+    echo 'pm.start_servers = 2' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
+    echo 'pm.min_spare_servers = 1' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
+    echo 'pm.max_spare_servers = 3' >> /usr/local/etc/php-fpm.d/zz-docker.conf
+
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --1
 
