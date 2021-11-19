@@ -1,7 +1,7 @@
 #!/bin/bash
 # Use this when wanting to manually build outside of CI.
 
-PLATFORMS='linux/amd64,linux/arm64'
+PLATFORMS='linux/amd64'
 IMAGES=(
     'nginx'
     'nginx-cors'
@@ -22,7 +22,7 @@ docker buildx create --use --name=volkerbuilder > /dev/null 2>&1
 
 # Build the images
 for IMAGE in ${IMAGES[@]}; do
-    (cd ${IMAGE} && docker buildx build -f DockerFile . -t rareloop/volker:${IMAGE} --platform ${PLATFORMS} --push)
+    (docker buildx build -f ${IMAGE}/DockerFile . -t rareloop/volker:${IMAGE} --platform ${PLATFORMS})
 done
 
 # Cleanup
