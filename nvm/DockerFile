@@ -3,6 +3,12 @@
 ############################################################
 FROM tzenderman/docker-nvm:latest
 
+# Require git for npm install / bower install
+RUN apt-get update
+RUN apt-get install git -y
+RUN apt-get install python -y
+RUN apt-get install build-essential -y
+
 # Set working directory
 WORKDIR /var/www
 
