@@ -37,7 +37,7 @@ RUN pecl install redis && docker-php-ext-enable redis
 RUN pecl install yaml && docker-php-ext-enable yaml
 
 # Copy Opcache configuration
-COPY opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+COPY /resources/config/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 # Setup PHP FPM workers config
 RUN echo 'pm = dynamic' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
@@ -46,16 +46,17 @@ RUN echo 'pm = dynamic' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
     echo 'pm.min_spare_servers = 1' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
     echo 'pm.max_spare_servers = 3' >> /usr/local/etc/php-fpm.d/zz-docker.conf
 
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --1
+COPY /resources/scripts/php/entrypoint.sh /entrypoint.sh
+COPY /resources/scripts/php/root-start-script.sh /root-start-script.sh
+COPY /resources/scripts/php/www-start-script.sh /www-start-script.sh
 
-# Add user for laravel application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
+ENTRYPOINT [ "/entrypoint.sh" ]
 
-# Change current user to www
+# Change to WWW user
 USER www
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
+
 CMD ["php-fpm"]
+

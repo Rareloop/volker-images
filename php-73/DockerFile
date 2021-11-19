@@ -7,58 +7,20 @@ FROM php:7.3-fpm
 # Set working directory
 WORKDIR /var/www
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
-    unzip \
-    git \
-    curl \
-    libzip-dev \
-    libxml2-dev \
-    libyaml-dev \
-    libmagickwand-dev
+# Copy All Scripts, Configuration Etc
+COPY /resources/config/php/ /docker-config/
+COPY /resources/scripts/php/ /docker-scripts/
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Run Installation Scripts
+RUN /docker-scripts/install_dependencies.sh
+RUN /docker-scripts/install_extensions.sh
+RUN /docker-scripts/install_users.sh
+RUN /docker-scripts/install_config.sh
 
-# Install extensions
-RUN docker-php-ext-install mysqli pdo_mysql mbstring zip exif pcntl soap
-RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
-RUN docker-php-ext-install zip gd sockets
-RUN docker-php-ext-install opcache
-RUN pecl install redis && docker-php-ext-enable redis
-RUN pecl install imagick && docker-php-ext-enable imagick
-RUN pecl install yaml && docker-php-ext-enable yaml
+ENTRYPOINT [ "/docker-scripts/entrypoint.sh" ]
 
-# Copy Opcache configuration
-COPY opcache.ini /usr/local/etc/php/conf.d/opcache.ini
-
-# Setup PHP FPM workers config
-RUN echo 'pm = dynamic' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
-    echo 'pm.max_children = 5' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
-    echo 'pm.start_servers = 2' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
-    echo 'pm.min_spare_servers = 1' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
-    echo 'pm.max_spare_servers = 3' >> /usr/local/etc/php-fpm.d/zz-docker.conf
-
-
-# Add user for laravel application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
-
-# Change current user to www
+# Change to WWW user
 USER www
-
-COPY entrypoint.sh /entrypoint.sh
-COPY image-start-script.sh /image-start-script.sh
-
-ENTRYPOINT [ "/entrypoint.sh" ]
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
