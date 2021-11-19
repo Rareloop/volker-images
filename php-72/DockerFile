@@ -7,15 +7,23 @@ FROM php:7.2-fpm
 # Set working directory
 WORKDIR /var/www
 
-# Copy All Scripts, Configuration Etc
+# Copy all config
 COPY /resources/config/php/ /docker-config/
-COPY /resources/scripts/php/ /docker-scripts/
+
+# Only copy install scripts
+COPY /resources/scripts/php/install_* /docker-scripts/
 
 # Run Installation Scripts
 RUN /docker-scripts/install_dependencies.sh
 RUN /docker-scripts/install_extensions.sh
 RUN /docker-scripts/install_users.sh
 RUN /docker-scripts/install_config.sh
+
+# Copy Entrypoint & Start Scripts etc.
+# If these change we don't want to rerun the above layers, hence do this last.
+COPY /resources/scripts/php/entrypoint.sh /docker-scripts/entrypoint.sh
+COPY /resources/scripts/php/root-start-script.sh /docker-scripts/root-start-script.sh
+COPY /resources/scripts/php/www-start-script.sh /docker-scripts/www-start-script.sh
 
 ENTRYPOINT [ "/docker-scripts/entrypoint.sh" ]
 
