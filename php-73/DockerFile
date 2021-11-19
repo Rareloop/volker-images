@@ -2,7 +2,9 @@
 # Dockerfile to create a php container to run the project
 ############################################################
 
-FROM php:7.3-fpm
+FROM php:7.3-fpm-alpine
+
+RUN apk update && apk add bash
 
 # Set working directory
 WORKDIR /var/www
