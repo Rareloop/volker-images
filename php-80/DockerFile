@@ -7,50 +7,17 @@ FROM php:8.0-fpm
 # Set working directory
 WORKDIR /var/www
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
-    unzip \
-    git \
-    curl \
-    libzip-dev \
-    libonig-dev \
-    libxml2-dev \
-    libyaml-dev
+# Copy All Scripts, Configuration Etc
+COPY /resources/config/php/ /docker-config/
+COPY /resources/scripts/php/ /docker-scripts/
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Run Installation Scripts
+RUN /docker-scripts/install_dependencies.sh
+RUN /docker-scripts/install_extensions.sh
+RUN /docker-scripts/install_users.sh
+RUN /docker-scripts/install_config.sh
 
-# Install extensions
-RUN docker-php-ext-install mysqli pdo_mysql mbstring zip exif pcntl soap
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-RUN docker-php-ext-install zip gd sockets
-RUN docker-php-ext-install opcache
-RUN pecl install redis && docker-php-ext-enable redis
-RUN pecl install yaml && docker-php-ext-enable yaml
-
-# Copy Opcache configuration
-COPY /resources/config/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
-
-# Setup PHP FPM workers config
-RUN echo 'pm = dynamic' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
-    echo 'pm.max_children = 5' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
-    echo 'pm.start_servers = 2' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
-    echo 'pm.min_spare_servers = 1' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
-    echo 'pm.max_spare_servers = 3' >> /usr/local/etc/php-fpm.d/zz-docker.conf
-
-COPY /resources/scripts/php/entrypoint.sh /entrypoint.sh
-COPY /resources/scripts/php/root-start-script.sh /root-start-script.sh
-COPY /resources/scripts/php/www-start-script.sh /www-start-script.sh
-
-ENTRYPOINT [ "/entrypoint.sh" ]
+ENTRYPOINT [ "/docker-scripts/entrypoint.sh" ]
 
 # Change to WWW user
 USER www
@@ -59,4 +26,5 @@ USER www
 EXPOSE 9000
 
 CMD ["php-fpm"]
+
 

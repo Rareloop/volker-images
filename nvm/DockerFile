@@ -10,7 +10,7 @@ WORKDIR /var/www
 RUN groupadd -g 1001 www
 RUN useradd -u 1001 -ms /bin/bash -g www www
 
-COPY entrypoint.sh /entrypoint.sh
-COPY image-start-script.sh /image-start-script.sh
+COPY /resources/scripts/nvm/entrypoint.sh /entrypoint.sh
+COPY /resources/scripts/nvm/image-start-script.sh /image-start-script.sh
 
 CMD [ "/bin/bash", "/entrypoint.sh" ]
