@@ -17,8 +17,8 @@ IMAGES=(
     'nvm'
 )
 
-docker buildx rm volkerbuilder > /dev/null 2>&1 
-docker buildx create --use --name=volkerbuilder > /dev/null 2>&1 
+docker buildx rm volkerbuilder > /dev/null 2>&1
+docker buildx create --use --name=volkerbuilder > /dev/null 2>&1
 
 # Build the images
 for IMAGE in ${IMAGES[@]}; do
