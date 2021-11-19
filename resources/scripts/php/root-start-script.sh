@@ -14,5 +14,5 @@ curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin
 # Install additional PHP extensions
 if [ -n "$PHP_EXTENSIONS" ]; then
     echo "Installing Extra PHP Extensions: ${PHP_EXTENSIONS}"
-    docker-php-ext-install ${PHP_EXTENSIONS}
+    install-php-extensions ${PHP_EXTENSIONS}
 fi
