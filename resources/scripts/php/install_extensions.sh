@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Install some common extensions
 install-php-extensions mysqli \
     pdo_mysql \
     mbstring \
