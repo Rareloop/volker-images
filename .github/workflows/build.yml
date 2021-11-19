@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - "master"
-      - "feature/entrypoints"
 
 jobs:
   build:
@@ -42,6 +41,6 @@ jobs:
         with:
           context: .
           file: ${{ matrix.image }}/DockerFile
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: rareloop/volker:${{ matrix.image }}
