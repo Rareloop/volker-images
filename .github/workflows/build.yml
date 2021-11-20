@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform:
-          - linux/amd64
-          - linux/arm64
         image:
           - nginx
           - nginx-cors
@@ -45,6 +42,6 @@ jobs:
         with:
           context: .
           file: ${{ matrix.image }}/DockerFile
-          platforms: ${{ matrix.platform }}
+          platforms: linux/amd64, linux/arm64
           push: true
           tags: rareloop/volker:${{ matrix.image }}
