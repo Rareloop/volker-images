@@ -20,4 +20,5 @@ fi
 if [ -f "/home/www/volker/app/Resources/global/certs/volker.test.crt" ]; then
     echo "Adding Volker CA.."
     cat /home/www/volker/app/Resources/global/certs/volker.test.crt >> /etc/ssl/certs/ca-certificates.crt
+    cat /home/www/volker/app/Resources/global/ca_scripts/myCA.pem >> /etc/ssl/certs/ca-certificates.crt
 fi

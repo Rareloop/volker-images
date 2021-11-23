@@ -2,6 +2,7 @@
 
 # Copy Opcache configuration
 cp /docker-config/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+cp /docker-config/openssl.ini /usr/local/etc/php/conf.d/openssl.ini
 
 # Setup PHP FPM workers config
 {
