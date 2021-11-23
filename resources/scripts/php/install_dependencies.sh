@@ -7,7 +7,12 @@ curl -sSLf \
     chmod +x /usr/local/bin/install-php-extensions
     
 # Install Sudo
-apt-get update && apt-get install -y sudo
+apt-get update && apt-get install -y \
+    sudo \
+    vim \
+    nano \
+    iputils-ping \
+    dnsutils
 
 # Cleanup Apt
 apt-get clean && rm -rf /var/lib/apt/lists/*
