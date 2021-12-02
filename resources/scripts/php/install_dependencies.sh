@@ -11,6 +11,7 @@ apt-get update && apt-get install -y \
     sudo \
     vim \
     nano \
+    git \
     iputils-ping \
     dnsutils
 
