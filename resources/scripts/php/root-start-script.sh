@@ -8,6 +8,9 @@ echo "Running as: $(whoami)"
 DEFAULT_COMPOSER_BRANCH="1"
 COMPOSER_BRANCH="${COMPOSER_BRANCH:=${DEFAULT_COMPOSER_BRANCH}}"
 PROJECT_TYPE='php';
+XDEBUG_ENABLED="${XDEBUG_ENABLED:=0}"
+XDEBUG_PROFILER_ENABLED="${XDEBUG_PROFILER_ENABLED:=0}"
+
 if [ -f 'volker.json' ]; then
     PROJECT_TYPE=$(grep 'type' volker.json | sed "s/.*project_type\": \"\([a-zA-Z]*\)\".*/\1/g");
 fi
@@ -33,6 +36,28 @@ if [[ "$PROJECT_TYPE" == "wordpress" ]]; then
     echo 'Installing Wordpress CLI';
     composer global require wp-cli/wp-cli-bundle
     echo 'Installed Wordpress CLI';
+fi
+
+if [[ "$XDEBUG_ENABLED" == "1" ]]; then
+    echo 'Installing XDebug';
+
+    echo 'Installing the Extension'
+    # Install the XDebug PHP extension
+    install-php-extensions xdebug
+    
+    echo 'Installing the configuration'
+
+    # Copy the XDebug PHP config over
+    # If we've enabled profiling - copy the profiling .ini over, otherwise the regular version.
+    if [[ "$XDEBUG_PROFILER_ENABLED" == "1" ]]; then
+        echo 'Profiling Enabled';
+        cp /docker-config/xdebug-profiling.ini /usr/local/etc/php/conf.d/xdebug.ini
+    else
+        echo 'Profiling Disabled';
+        cp /docker-config/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+    fi  
+
+    echo 'Installed XDebug';
 fi
 
 if [ -f "/home/www/volker/app/Resources/global/certs/volker.test.crt" ]; then
