@@ -3,6 +3,7 @@
 ############################################################
 
 FROM php:7.3-fpm
+COPY --from=php:7.3-cli /usr/local/bin/phpdbg /usr/local/bin/
 
 # Set working directory
 WORKDIR /var/www
