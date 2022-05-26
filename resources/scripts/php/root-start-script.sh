@@ -25,18 +25,15 @@ curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin
 echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> /home/www/.bashrc
 echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> /root/.bashrc
 
+# Fix permissions for www users .composer folder
+chown -R www:www /home/www/.composer
+
 # Install additional PHP extensions
 if [ -n "$PHP_EXTENSIONS" ]; then
     echo "Installing Extra PHP Extensions: ${PHP_EXTENSIONS}"
     install-php-extensions "${PHP_EXTENSIONS}"
 fi
 
-# Install WordPress CLI if a Wordpress project
-if [[ "$PROJECT_TYPE" == "wordpress" ]]; then
-    echo 'Installing Wordpress CLI';
-    composer global require wp-cli/wp-cli-bundle
-    echo 'Installed Wordpress CLI';
-fi
 
 if [[ "$XDEBUG_ENABLED" == "1" ]]; then
     echo 'Installing XDebug';
@@ -68,3 +65,7 @@ fi
 
 echo "Adding .vimrc";
 echo "syntax on" >> /home/www/.vimrc;
+
+# Fix permissions in /var/www
+echo 'Fixing all permissions in /var/www'
+chown -R www:www /var/www
