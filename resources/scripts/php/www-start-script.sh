@@ -10,7 +10,6 @@ fi
 
 echo "Running for project: $PROJECT_TYPE"
 
-
 # Install WordPress CLI if a Wordpress project
 if [[ "$PROJECT_TYPE" == "wordpress" ]]; then
     echo 'Installing Wordpress CLI';
