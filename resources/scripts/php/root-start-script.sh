@@ -31,12 +31,6 @@ if [ -n "$PHP_EXTENSIONS" ]; then
     install-php-extensions "${PHP_EXTENSIONS}"
 fi
 
-# Install WordPress CLI if a Wordpress project
-if [[ "$PROJECT_TYPE" == "wordpress" ]]; then
-    echo 'Installing Wordpress CLI';
-    composer global require wp-cli/wp-cli-bundle
-    echo 'Installed Wordpress CLI';
-fi
 
 if [[ "$XDEBUG_ENABLED" == "1" ]]; then
     echo 'Installing XDebug';
