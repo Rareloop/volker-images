@@ -3,7 +3,7 @@
 # Be explicit about which variables we're expecting
 DOCUMENT_ROOT=${DOCUMENT_ROOT}
 APP_URL=${APP_URL}
-SHARED_URL=${SHARED_URl}
+SHARED_URL=${SHARED_URL}
 CORS_ENABLED=${CORS_ENABLED}
 
 # Render the template itself
@@ -24,10 +24,10 @@ echo "";
 fi
 echo "    location ~ \.php$ {";
 if [[ "$CORS_ENABLED" == "1" ]]; then
-echo "    add_header 'Access-Control-Allow-Origin' '*' always;";
-echo "    add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, PATCH, OPTIONS, DELETE';";
-echo "    add_header 'Access-Control-Allow-Headers' 'DNT,Origin,X-Device-UUID,X-Device-Version,X-Device-PLatform,X-Device-Model,X-Auth-Token,X-Requested-With,Content-Type,If-Modified-Since,User-Agent,Keep-Alive,Content-Length,Accept,Cache-Control,X-Upload-Content-Length,X-Upload-Content-Type,Authorization';";
-echo "    add_header 'Access-Control-Expose-Headers' 'X-Location';";
+echo "        add_header 'Access-Control-Allow-Origin' '*' always;";
+echo "        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, PATCH, OPTIONS, DELETE';";
+echo "        add_header 'Access-Control-Allow-Headers' 'DNT,Origin,X-Device-UUID,X-Device-Version,X-Device-PLatform,X-Device-Model,X-Auth-Token,X-Requested-With,Content-Type,If-Modified-Since,User-Agent,Keep-Alive,Content-Length,Accept,Cache-Control,X-Upload-Content-Length,X-Upload-Content-Type,Authorization';";
+echo "        add_header 'Access-Control-Expose-Headers' 'X-Location';";
 echo "";
 fi
 echo "        try_files \$uri =404;";
@@ -45,7 +45,7 @@ echo "    }";
 echo "";
 echo "    location / {";
 if [[ "$CORS_ENABLED" == "1" ]]; then
-echo "    if ($request_method = 'OPTIONS') {";
+echo "    if (\$request_method = 'OPTIONS') {";
 echo "        # Tell client that this pre-flight info is valid for 20 days";
 echo "        add_header 'Access-Control-Allow-Origin' '*';";
 echo "        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, PATCH, OPTIONS, DELETE';";

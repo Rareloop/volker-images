@@ -1,6 +1,6 @@
 FROM nginx:alpine
 
 COPY /resources/config/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY /resources/scripts/nginx/entrypoint.sh /docker-scripts/entrypoint.sh
 
-ENTRYPOINT [ "/docker-scripts/entrypoint.sh" ]
+COPY /resources/scripts/nginx/entrypoint.sh /docker-entrypoint.d/volker-entrypoint.sh
+COPY /resources/scripts/nginx/generate-config.sh /docker-scripts/generate-config.sh
