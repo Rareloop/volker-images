@@ -6,6 +6,10 @@ APP_URL=${APP_URL}
 SHARED_URL=${SHARED_URL}
 CORS_ENABLED=${CORS_ENABLED}
 
+if [[ ! -z "${CORS_OVERRIDE}" ]]; then
+    CORS_ENABLED=1
+fi
+
 # Render the template itself
 # This is pretty dumb but i don't know a better way of rendering a template out like this and making use of conditionals in a nice way
 echo "server {";
