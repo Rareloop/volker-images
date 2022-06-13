@@ -3,6 +3,13 @@ echo 'Container entrypoint'
 
 echo "Running as: $(whoami)"
 
+if [[ ! -z "${EXPERIMENTAL_SYNC_ENABLED}" ]]; then
+    until nc -z sync 5001; do
+        echo "Sync has not finished yet - sleeping"
+        sleep 1
+    done
+fi
+
 if [ -f '/docker-scripts/root-start-script.sh' ]; then
     echo 'Found root-start-script.sh to run'
     sudo -E /docker-scripts/root-start-script.sh

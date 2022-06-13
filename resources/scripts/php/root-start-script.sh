@@ -65,8 +65,3 @@ fi
 
 echo "Adding .vimrc";
 echo "syntax on" >> /home/www/.vimrc;
-
-# Fix permissions in /var/www
-echo 'Fixing all permissions in /var/www'
-find /var/www \! -user www -exec chown www:www {} \;
-echo 'Fixed!'
