@@ -44,7 +44,7 @@ cd $UNISON_DIR
 # Run unison syncing UNISON_HOST_DIR and UNISON_DIR
 UNISON_CMD=(su-exec $UNISON_USER unison $UNISON_HOST_DIR $UNISON_DIR \
   -prefer $UNISON_HOST_DIR
-  -auto -batch -log=false \
+  -auto -batch -log=false -fastcheck=true \
   -ignore 'Path .git'\
   -ignore 'Path */tmp'\
   -ignore 'Path tmp')
