@@ -50,8 +50,8 @@ EOF
 fi
 if [[ -n "${SHARED_URL}" ]]; then
 envsubst <<EOF
-        sub_filter ${APP_URL} ${SHARED_URL};";
-        sub_filter_once off;";
+        sub_filter ${APP_URL} ${SHARED_URL};
+        sub_filter_once off;
 EOF
 fi
 cat <<EOF
@@ -62,8 +62,8 @@ EOF
 cat <<EOF
 
     location / {
-        try_files \$uri \$uri/ /index.php?\$query_string;";
-        gzip_static on;";
+        try_files \$uri \$uri/ /index.php?\$query_string;
+        gzip_static on;
 EOF
 if [[ "$CORS_ENABLED" == "1" ]]; then
 cat <<EOF
@@ -82,8 +82,8 @@ EOF
 fi
 if [[ -n "${SHARED_URL}" ]]; then
 envsubst <<EOF
-        sub_filter ${APP_URL} ${SHARED_URL};";
-        sub_filter_once off;";
+        sub_filter ${APP_URL} ${SHARED_URL};
+        sub_filter_once off;
 EOF
 fi
 cat <<EOF
