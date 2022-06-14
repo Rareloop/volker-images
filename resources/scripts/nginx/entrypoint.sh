@@ -21,7 +21,8 @@ fi
 
 # Generate the Nginx configuration using the configuration script
 echo 'Generating Nginx Configuration';
-sh /docker-scripts/generate-config.sh > /etc/nginx/conf.d/app.conf
+sh /docker-scripts/generate-config.sh > /root/app.conf
+mv /root/app.conf /etc/nginx/conf.d/app.conf
 echo 'Done';
 
 echo 'Signalling Reload to Nginx..'
