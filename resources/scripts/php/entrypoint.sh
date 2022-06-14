@@ -4,6 +4,7 @@ echo 'Container entrypoint'
 echo "Running as: $(whoami)"
 
 if [[ ! -z "${EXPERIMENTAL_SYNC_ENABLED}" ]]; then
+    # Wait until the sync container has opened port 5001 signalling sync has finished
     until nc -z sync 5001; do
         echo "Sync has not finished yet - sleeping"
         sleep 1
