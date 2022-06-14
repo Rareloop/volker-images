@@ -1,0 +1,28 @@
+FROM alpine:latest
+
+RUN apk --no-cache add \
+    tini \
+    bash \
+    nmap-ncat \
+    su-exec \
+    unison && \
+    rm -rf /var/cache/apk/*
+
+# These can be overridden later
+ENV UNISON_DIR="/data" \
+    UNISON_HOST_DIR="/host_data" \
+    HOME="/tmp" \
+    ##
+    # Use 1000:1001 as default user
+    ##
+    UNISON_USER="unison" \
+    UNISON_GROUP="sync" \
+    UNISON_UID="1000" \
+    UNISON_GID="1001"
+
+VOLUME /unison
+
+COPY /resources/scripts/sync/entrypoint.sh /entrypoint.sh
+
+EXPOSE 5001
+ENTRYPOINT ["/sbin/tini", "--", "/entrypoint.sh"]

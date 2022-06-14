@@ -57,6 +57,17 @@ if [[ "$XDEBUG_ENABLED" == "1" ]]; then
     echo 'Installed XDebug';
 fi
 
+# If we were given a QA instance, try restoring it from the tar archive.
+if [[ ! -z "${QA_INSTANCE}" ]]; then
+    if [ -f "/qa/${QA_INSTANCE}.tar" ]; then
+        echo "Restoring QA Instance: \"${QA_INSTANCE}\""
+        sudo tar -xf /qa/${QA_INSTANCE}.tar -C /
+
+        cp /var/www/.env.qa /var/www/.env 
+        echo 'Restored'
+    fi
+fi
+
 if [ -f "/home/www/volker/app/Resources/global/certs/volker.test.crt" ]; then
     echo "Adding Volker CA.."
     cat /home/www/volker/app/Resources/global/certs/volker.test.crt >> /etc/ssl/certs/ca-certificates.crt
@@ -65,8 +76,3 @@ fi
 
 echo "Adding .vimrc";
 echo "syntax on" >> /home/www/.vimrc;
-
-# Fix permissions in /var/www
-echo 'Fixing all permissions in /var/www'
-find /var/www \! -user www -exec chown www:www {} \;
-echo 'Fixed!'

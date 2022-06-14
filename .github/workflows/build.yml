@@ -24,6 +24,7 @@ jobs:
           - node-10
           - node-11
           - nvm
+          - sync
     steps:
       - name: Checkout
         uses: actions/checkout@v2
