@@ -25,6 +25,7 @@ RUN /docker-scripts/install_config.sh
 COPY /resources/scripts/php/entrypoint.sh /docker-scripts/entrypoint.sh
 COPY /resources/scripts/php/root-start-script.sh /docker-scripts/root-start-script.sh
 COPY /resources/scripts/php/www-start-script.sh /docker-scripts/www-start-script.sh
+COPY /resources/scripts/php/qa-start-script.sh /docker-scripts/qa-start-script.sh
 
 # Copy the script to run the scheduler
 COPY /resources/scripts/php/run-scheduler.sh /run-scheduler.sh

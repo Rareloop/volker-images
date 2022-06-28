@@ -10,9 +10,8 @@ COMPOSER_BRANCH="${COMPOSER_BRANCH:=${DEFAULT_COMPOSER_BRANCH}}"
 PROJECT_TYPE='php';
 XDEBUG_ENABLED="${XDEBUG_ENABLED:=0}"
 XDEBUG_PROFILER_ENABLED="${XDEBUG_PROFILER_ENABLED:=0}"
-VOLKER_PROJECT_TYPE="${VOLKER_PROJECT_TYPE:='laravel'}"
 
-if [ -f 'volker.json' ]; then
+if [ -f 'volker.json' ]; then  
     PROJECT_TYPE=$(grep 'type' volker.json | sed "s/.*project_type\": \"\([a-zA-Z]*\)\".*/\1/g");
 fi
 
@@ -56,24 +55,6 @@ if [[ "$XDEBUG_ENABLED" == "1" ]]; then
     fi  
 
     echo 'Installed XDebug';
-fi
-
-# If we were given a QA instance, try restoring it from the tar archive.
-if [[ ! -z "${QA_INSTANCE}" ]]; then
-    if [ -f "/qa/${QA_INSTANCE}.tar" ]; then
-        echo "Restoring QA Instance: \"${QA_INSTANCE}\""
-        sudo tar -xf /qa/${QA_INSTANCE}.tar -C /
-
-        if [[ "$VOLKER_PROJECT_TYPE" == "laravel" ]]; then
-            cp /var/www/.env.qa /var/www/.env 
-        fi
-
-        if [[ "$VOLKER_PROJECT_TYPE" == "wordpress" ]]; then
-            cp /var/www/site/.env.qa /var/www/site/.env 
-        fi
-        
-        echo 'Restored'
-    fi
 fi
 
 if [ -f "/home/www/volker/app/Resources/global/certs/volker.test.crt" ]; then
