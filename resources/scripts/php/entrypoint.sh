@@ -11,6 +11,13 @@ if [[ ! -z "${EXPERIMENTAL_SYNC_ENABLED}" ]]; then
     done
 fi
 
+
+# If we have a QA instance, delegate to the QA script 
+if [[ ! -z "${QA_INSTANCE}" ]]; then
+    echo "Inside QA instance $QA_INSTANCE, running qa-start-script.sh";
+    sudo -E /docker-scripts/qa-start-script.sh
+fi
+
 if [ -f '/docker-scripts/root-start-script.sh' ]; then
     echo 'Found root-start-script.sh to run'
     sudo -E /docker-scripts/root-start-script.sh
