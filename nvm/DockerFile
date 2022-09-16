@@ -1,13 +1,25 @@
 ############################################################
 # Dockerfile to create a node container to run the project
 ############################################################
-FROM tzenderman/docker-nvm:latest
+FROM ubuntu:latest
 
-# Require git for npm install / bower install
+# replace shell with bash so we can source files
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+# install dependencies
 RUN apt-get update
-RUN apt-get install git -y
-RUN apt-get install python -y
-RUN apt-get install build-essential -y
+RUN apt-get install curl git python3 build-essential tini -y
+
+# clean up apt
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ENV NVM_VERSION v0.39.1
+ENV NVM_DIR /root/.nvm
+
+RUN curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash
+RUN source /root/.bashrc
+
+RUN nvm --version
 
 # Set working directory
 WORKDIR /var/www
@@ -19,4 +31,4 @@ RUN useradd -u 1001 -ms /bin/bash -g www www
 COPY /resources/scripts/nvm/entrypoint.sh /entrypoint.sh
 COPY /resources/scripts/nvm/image-start-script.sh /image-start-script.sh
 
-CMD [ "/bin/bash", "/entrypoint.sh" ]
+ENTRYPOINT ["/usr/bin/tini", "--", "/entrypoint.sh"]

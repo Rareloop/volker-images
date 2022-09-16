@@ -12,6 +12,3 @@ if [ -f '/var/www/container-start-script.sh' ]; then
 fi
 
 echo 'Container entrypoint complete'
-
-# Continue with the parent container CMD
-/sbin/my_init
