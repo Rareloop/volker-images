@@ -14,7 +14,8 @@ apt-get update && apt-get install -y \
     netcat \
     git \
     iputils-ping \
-    dnsutils
+    dnsutils \
+    default-mysql-client
 
 # Cleanup Apt
 apt-get clean && rm -rf /var/lib/apt/lists/*
