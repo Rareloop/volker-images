@@ -8,6 +8,9 @@ COPY --from=php:8.0-cli /usr/local/bin/phpdbg /usr/local/bin/
 # Set working directory
 WORKDIR /var/www
 
+# NVM Settings
+ENV NVM_DIR /usr/local/nvm
+
 # Copy all config
 COPY /resources/config/php/ /docker-config/
 
@@ -19,6 +22,7 @@ RUN /docker-scripts/install_dependencies.sh
 RUN /docker-scripts/install_extensions.sh
 RUN /docker-scripts/install_users.sh
 RUN /docker-scripts/install_config.sh
+RUN /docker-scripts/install_nvm.sh
 
 # Copy Entrypoint & Start Scripts etc.
 # If these change we don't want to rerun the above layers, hence do this last.
