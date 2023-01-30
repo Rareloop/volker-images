@@ -10,6 +10,7 @@ WORKDIR /var/www
 
 # NVM Settings
 ENV NVM_DIR /usr/local/nvm
+ENV NVM_VERSION v0.39.3
 
 # Copy all config
 COPY /resources/config/php/ /docker-config/
