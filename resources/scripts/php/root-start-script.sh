@@ -57,10 +57,11 @@ if [[ "$XDEBUG_ENABLED" == "1" ]]; then
     echo 'Installed XDebug';
 fi
 
-if [ -f "/home/www/volker/app/Resources/global/certs/volker.test.crt" ]; then
-    echo "Adding Volker CA.."
-    cat /home/www/volker/app/Resources/global/certs/volker.test.crt >> /etc/ssl/certs/ca-certificates.crt
-    cat /home/www/volker/app/Resources/global/ca_scripts/myCA.pem >> /etc/ssl/certs/ca-certificates.crt
+if [ -f "/home/www/.config/volker/certs/volker-ca.pem" ]; then
+    echo "Adding Volker CA Cert.."
+    cat /home/www/.config/volker/certs/volker-ca.pem >> /etc/ssl/certs/ca-certificates.crt
+    echo "Adding Volker Project Cert.."
+    cat /home/www/.config/volker/certs/volker.test.crt >> /etc/ssl/certs/ca-certificates.crt
 fi
 
 echo "Adding .vimrc";
