@@ -25,8 +25,9 @@ curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin
 echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> /home/www/.bashrc
 echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> /root/.bashrc
 
-# Fix permissions for www users .composer folder
+# Fix permissions for www users .config folder
 chown -R www:www /home/www/.composer
+chown -R www:www /home/www/.config
 
 # Install additional PHP extensions
 if [ -n "$PHP_EXTENSIONS" ]; then
