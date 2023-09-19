@@ -7,15 +7,7 @@ curl -sSLf \
     chmod +x /usr/local/bin/install-php-extensions
     
 # Install Sudo
-apt-get update && apt-get install -y \
-    sudo \
-    vim \
-    nano \
-    netcat-traditional \
-    git \
-    iputils-ping \
-    dnsutils \
-    default-mysql-client
+apt-get update && apt-get install -y "$@"
 
 # Cleanup Apt
 apt-get clean && rm -rf /var/lib/apt/lists/*
