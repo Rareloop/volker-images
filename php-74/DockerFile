@@ -2,8 +2,8 @@
 # Dockerfile to create a php container to run the project
 ############################################################
 
-FROM php:7.4-fpm
-COPY --from=php:7.4-cli /usr/local/bin/phpdbg /usr/local/bin/
+FROM php:7.4-fpm-bookworm
+COPY --from=php:7.4-cli-bookworm /usr/local/bin/phpdbg /usr/local/bin/
 
 # Set working directory
 WORKDIR /var/www
