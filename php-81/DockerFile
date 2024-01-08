@@ -20,7 +20,20 @@ COPY /resources/scripts/php/install_* /docker-scripts/
 
 # Run Installation Scripts
 RUN /docker-scripts/install_dependencies.sh sudo vim nano netcat-traditional git iputils-ping dnsutils default-mysql-client
-RUN /docker-scripts/install_extensions.sh
+RUN install-php-extensions mysqli \
+    pdo_mysql \
+    mbstring \
+    exif \
+    pcntl \
+    soap \
+    gd \
+    zip \
+    sockets \
+    opcache \
+    intl \
+    redis \
+    imagick \
+    yaml
 RUN /docker-scripts/install_users.sh
 RUN /docker-scripts/install_config.sh
 RUN /docker-scripts/install_nvm.sh

@@ -20,6 +20,7 @@ jobs:
           - php-80
           - php-81
           - php-82
+          - php-83
           - node-6
           - node-8
           - node-10
