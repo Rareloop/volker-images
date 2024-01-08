@@ -9,6 +9,8 @@ IMAGES=(
     # 'php-72'
     # 'php-73'
     # 'php-74'
+    'php-83'
+    # 'php-82'
     # 'php-81'
     # 'php-80'
     # 'node-6'
