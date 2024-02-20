@@ -15,7 +15,7 @@ if [[ "" == "${SCHEDULE_MINUTES}" ]]; then
 fi
 
 # Calculate seconds
-SCHEDULE_SECONDS=$((SCHEDULE_MINUTES * 1))
+SCHEDULE_SECONDS=$((SCHEDULE_MINUTES * 60))
 
 echo "Running every ${SCHEDULE_MINUTES} minutes: ${COMMAND}"
 
