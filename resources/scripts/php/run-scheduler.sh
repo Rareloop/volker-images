@@ -21,6 +21,6 @@ echo "Running every ${SCHEDULE_MINUTES} minutes: ${COMMAND}"
 
 while true
 do
-  ${COMMAND} &
+  eval "${COMMAND} &"
   sleep ${SCHEDULE_SECONDS}
 done
