@@ -3,7 +3,8 @@ name: build-images
 on:
   push:
     branches:
-      - "master"
+      - "master
+  workflow_dispatch:
 
 jobs:
   build:
