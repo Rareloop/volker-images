@@ -19,6 +19,13 @@ if [[ ! -z "${QA_INSTANCE}" ]]; then
     fi
 fi
 
+# Detect if we have our own custom Nginx.conf to use instead
+if [ -f '/var/www/.volker/nginx/nginx.conf' ]; then
+    echo 'Found custom Nginx configuration to apply'
+    cp /var/www/.volker/nginx/nginx.conf /etc/nginx/nginx.conf
+    echo 'Done'
+fi
+
 # Generate the Nginx configuration using the configuration script
 echo 'Generating Nginx Configuration';
 sh /docker-scripts/generate-config.sh > /root/app.conf

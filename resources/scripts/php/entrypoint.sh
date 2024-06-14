@@ -47,11 +47,20 @@ fi
 if [ -f '/var/www/.volker/php/custom-root-script.sh' ]; then
     echo 'Found custom-root-script.sh to run'
     sudo -E /var/www/.volker/php/custom-root-script.sh
+    echo 'Done'
 fi
 
 if [ -f '/var/www/.volker/php/custom-www-script.sh' ]; then
     echo 'Found custom-www-script.sh to run'
     /var/www/.volker/php/custom-www-script.sh
+    echo 'Done'
+fi
+
+# Detect if we have our own custom php.ini to apply
+if [ -f '/var/www/.volker/php/php.ini' ]; then
+    echo 'Found custom php.ini to apply'
+    sudo cp /var/www/.volker/php/php.ini /usr/local/etc/php/conf.d/zzz-php.ini
+    echo 'Done'
 fi
 
 echo "Running command exec $*"
