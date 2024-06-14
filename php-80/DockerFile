@@ -19,7 +19,7 @@ COPY /resources/config/php/ /docker-config/
 COPY /resources/scripts/php/install_* /docker-scripts/
 
 # Run Installation Scripts
-RUN /docker-scripts/install_dependencies.sh sudo vim nano netcat git iputils-ping dnsutils default-mysql-client
+RUN /docker-scripts/install_dependencies.sh sudo vim nano netcat git iputils-ping dnsutils default-mysql-client jq
 RUN install-php-extensions mysqli \
     pdo_mysql \
     mbstring \

@@ -67,3 +67,35 @@ fi
 
 echo "Adding .vimrc";
 echo "syntax on" >> /home/www/.vimrc;
+
+# Using jq, fish the extra php extensions out of volker.json and install them
+install_extensions_from_volker_json() {
+    if [ ! -f '/var/www/volker.json' ]; then
+        return 0;
+    fi
+
+    echo 'Attempting to install custom extensions'
+
+    # Parse the extra extensions out of volker.json first
+    extensions=$(jq -r '.extra_php_extensions | join(" ")' /var/www/volker.json)
+
+    if [ $? -ne 0 ]; then
+        echo "Failed to parse extra extensions out of JSON."
+
+        return 1
+    fi
+
+
+    if [ -z "$extensions" ]; then
+        echo "No extensions found to install."
+
+        return 0;
+    fi
+
+    echo "Attempting to install extensions: '$extensions'"
+
+    # Run the install-php-extensions command
+    install-php-extensions $extensions
+}
+
+install_extensions_from_volker_json
