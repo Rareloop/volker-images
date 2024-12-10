@@ -32,7 +32,7 @@ RUN install-php-extensions mysqli \
     opcache \
     intl \
     redis \
-    imagick/imagick@master \
+    imagick \
     yaml
 RUN /docker-scripts/install_users.sh
 RUN /docker-scripts/install_config.sh
