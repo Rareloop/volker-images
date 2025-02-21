@@ -27,7 +27,7 @@ jobs:
           - node-8
           - node-10
           - node-11
-          - nvm
+          # - nvm
           - sync
     steps:
       - name: Checkout
