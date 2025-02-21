@@ -25,6 +25,7 @@ RUN install-php-extensions mysqli \
     mbstring \
     exif \
     pcntl \
+    pcov \
     soap \
     gd \
     zip \
