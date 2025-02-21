@@ -9,8 +9,8 @@ COPY --from=php:8.0-cli /usr/local/bin/phpdbg /usr/local/bin/
 WORKDIR /var/www
 
 # NVM Settings
-ENV NVM_DIR /usr/local/nvm
-ENV NVM_VERSION v0.39.3
+ENV NVM_DIR=/usr/local/nvm
+ENV NVM_VERSION=v0.39.3
 
 # Copy all config
 COPY /resources/config/php/ /docker-config/
@@ -33,8 +33,10 @@ RUN install-php-extensions mysqli \
     opcache \
     intl \
     redis \
-    imagick \
     yaml
+# Split out to avoid segfault when installing all in one go
+RUN install-php-extensions imagick
+
 RUN /docker-scripts/install_users.sh
 RUN /docker-scripts/install_config.sh
 RUN /docker-scripts/install_nvm.sh
