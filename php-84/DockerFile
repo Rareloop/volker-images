@@ -25,6 +25,7 @@ RUN install-php-extensions mysqli \
     mbstring \
     exif \
     pcntl \
+    pcov \
     soap \
     gd \
     zip \
@@ -32,10 +33,9 @@ RUN install-php-extensions mysqli \
     opcache \
     intl \
     redis \
-    imagick \
     yaml
 # Split out to avoid segfault when installing all in one go
-RUN install-php-extensions pcov
+RUN install-php-extensions imagick
 
 RUN /docker-scripts/install_users.sh
 RUN /docker-scripts/install_config.sh
